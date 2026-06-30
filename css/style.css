@@ -1,0 +1,270 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+}
+
+:root {
+	--primary-color: #367b6d;
+	--primary-blur: blur(4px);
+	--page-padding-x: max(1rem, env(safe-area-inset-right), env(safe-area-inset-left));
+	--page-padding-top: max(1.25rem, env(safe-area-inset-top));
+	--page-padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+body {
+	margin: 0;
+	overflow-x: hidden;
+	font-family: "Bona Nova SC", Georgia, serif;
+	color: var(--primary-color);
+	background-color: #c8d9b8;
+	line-height: 1.4;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.scene {
+	position: relative;
+	min-height: 100svh;
+	min-height: 100dvh;
+	background-color: #c8d9b8;
+}
+
+.scene__background {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background-color: #c8d9b8;
+	background-image: url("../assets/img/ILL_Sam-Kira_figuren_achtergrond_moestuin.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center top;
+}
+
+
+.page {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	width: min(100%, 52rem);
+	min-height: 100svh;
+	min-height: 100dvh;
+	margin: 0 auto;
+	padding:
+		var(--page-padding-top)
+		var(--page-padding-x)
+		var(--page-padding-bottom);
+	text-align: center;
+}
+
+.content-panel {
+	width: fit-content;
+	max-width: 100%;
+	margin-inline: auto;
+	padding: 0.35rem 0.75rem;
+	backdrop-filter: var(--primary-blur);
+	-webkit-backdrop-filter: var(--primary-blur);
+}
+
+.intro {
+	margin: 0;
+}
+
+.intro__eyebrow {
+	margin: 0 0 0.25rem;
+	font-size: clamp(0.9rem, 3.2vw, 1.2rem);
+	font-style: italic;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.intro__name {
+	margin: 0;
+	font-size: clamp(1.85rem, 8.5vw, 3.75rem);
+	font-weight: 700;
+	line-height: 1.05;
+}
+
+.intro__date {
+	margin: 0.5rem 0 0;
+	font-size: clamp(0.85rem, 2.8vw, 1.1rem);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.hero {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.hero__image {
+	width: min(100%, 44rem);
+	margin: 0 auto;
+}
+
+.teaser {
+	margin: 0;
+}
+
+.teaser__message {
+	margin: 0;
+	font-size: clamp(1rem, 4vw, 1.5rem);
+	font-style: italic;
+}
+
+.teaser__note {
+	margin: 0.35rem 0 0;
+	font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+	line-height: 1.35;
+}
+
+.fade-in {
+	opacity: 0;
+	transform: translateY(10px);
+	transition:
+		opacity 0.8s ease,
+		transform 0.8s ease;
+}
+
+.fade-in.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.float {
+	animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+@media (max-width: 639px) {
+	.scene__background {
+		background-position: center top;
+	}
+
+	.page {
+		gap: 0;
+		min-height: 100svh;
+		min-height: 100dvh;
+		padding:
+			var(--page-padding-top)
+			var(--page-padding-x)
+			var(--page-padding-bottom);
+	}
+
+	.intro,
+	.teaser,
+	.hero {
+		flex: 1 1 0;
+		min-height: 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.intro {
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.teaser {
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+		padding: 0;
+	}
+
+	.hero {
+		justify-content: flex-end;
+		align-items: center;
+		width: calc(100% + (var(--page-padding-x) * 2));
+		margin: 0 calc(var(--page-padding-x) * -1);
+		padding: 0;
+	}
+
+	.hero__image {
+		width: 100%;
+		max-width: none;
+	}
+
+	.float {
+		animation: none;
+	}
+}
+
+@media (min-width: 640px) {
+	:root {
+		--page-padding-top: max(2rem, env(safe-area-inset-top));
+		--page-padding-bottom: max(2rem, env(safe-area-inset-bottom));
+	}
+
+	.page {
+		justify-content: center;
+	}
+
+	.hero {
+		order: 0;
+	}
+
+	.teaser {
+		order: 1;
+		margin-top: 0.5rem;
+	}
+
+	.hero__image {
+		width: min(100%, 44rem);
+	}
+}
+
+@media (min-width: 900px) {
+	:root {
+		--page-padding-top: max(2.5rem, env(safe-area-inset-top));
+	}
+
+	.hero__image {
+		width: min(100%, 48rem);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.fade-in {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.float {
+		animation: none;
+	}
+}
